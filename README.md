@@ -32,7 +32,7 @@ The request will return an HTTP response with body 1 if the call is successful a
 ## Install
 1. Clone repo
 2. Run: `cd track`
-3. Run: `erlc mochijson.erl mochijson2.erl my_esi.erl`
+3. Run: `erlc mochijson.erl my_esi.erl`
 4. Run: `erl`
 5. Run: `c(my_esi).`
 6. Run: `my_esi:start().`
@@ -42,7 +42,5 @@ The request will return an HTTP response with body 1 if the call is successful a
 
 ## To-do
 - Comments
-- Return 1 and 0 instead of true and false
-- Add exception handling for invalid JSON or Base64 encoded data
 - Add the time the request was received to the JSON object if no time was provided in the request
 - Handle other optional parameters
