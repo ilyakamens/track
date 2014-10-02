@@ -31,11 +31,11 @@ The request will return an HTTP response with body 1 if the call is successful a
 
 ## Install
 1. Clone repo
-2. Run: cd track
-3. Run: erlc mochijson.erl mochijson2.erl my_esi.erl
-4. Run: erl
-5. Run: c(my_esi).
-6. Run: my_esi:start().
+2. Run: `cd track`
+3. Run: `erlc mochijson.erl mochijson2.erl my_esi.erl`
+4. Run: `erl`
+5. Run: `c(my_esi).`
+6. Run: `my_esi:start().`
 7. Test using aforementioned endpoint URL or using whatever else you want to make HTTP GET requests
 
 ---
