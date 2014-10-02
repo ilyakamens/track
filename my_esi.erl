@@ -34,11 +34,9 @@ hasKey(false, _Key) ->
 writeToFile(Request) ->
 	file:write_file("./log.txt", io_lib:fwrite("~p.\n\n", [Request]), [append]).
 
-hasValidPrefix(Input) ->
-	string:str(Input, "data=") == 1.
-
 getOutermostTuple(Input) ->
-	Base64Encoded = string:substr(Input, 6),
+	DataPrefix = "data=",
+	Base64Encoded = string:substr(Input, string:str(Input, DataPrefix) + string:len(DataPrefix)),
 	try
 		Base64Decoded = base64:decode_to_string(Base64Encoded),
 		mochijson:decode(Base64Decoded)
@@ -80,17 +78,13 @@ getDataList(DataTuple) ->
 	end.
 
 isValid(Input) ->
-	case hasValidPrefix(Input) of
-		true ->
-			OutermostTuple = getOutermostTuple(Input),
-			OutermostList = getOutermostList(OutermostTuple),
-			EventTuple = getEventTuple(OutermostList),
-			PropertiesTuple = getPropertiesTuple(OutermostList),
-			DataList = getDataList(getDataTuple(PropertiesTuple)),
-			case hasKey(EventTuple, "event") andalso hasKey(PropertiesTuple, "properties") andalso hasKey(DataList, "token") of
-				true -> writeToFile(OutermostTuple), "1";
-				false -> "0"
-			end;
+	OutermostTuple = getOutermostTuple(Input),
+	OutermostList = getOutermostList(OutermostTuple),
+	EventTuple = getEventTuple(OutermostList),
+	PropertiesTuple = getPropertiesTuple(OutermostList),
+	DataList = getDataList(getDataTuple(PropertiesTuple)),
+	case hasKey(EventTuple, "event") andalso hasKey(PropertiesTuple, "properties") andalso hasKey(DataList, "token") of
+		true -> writeToFile(OutermostTuple), "1";
 		false -> "0"
 	end.
 
