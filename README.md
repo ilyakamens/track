@@ -36,7 +36,7 @@ The request will return an HTTP response with body 1 if the call is successful a
 4. Run: `erl`
 5. Run: `c(my_esi).`
 6. Run: `my_esi:start().`
-7. Test using aforementioned endpoint URL or using whatever else you want to make HTTP GET requests
+7. Test using aforementioned endpoint URL, making GET requests however you like, or with `my_esi:testValid()`
 
 ---
 
