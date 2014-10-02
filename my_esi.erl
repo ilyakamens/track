@@ -85,10 +85,10 @@ isValid(Input) ->
 			PropertiesTuple = getPropertiesTuple(OutermostList),
 			DataList = getDataList(getDataTuple(PropertiesTuple)),
 			case hasKey(EventTuple, "event") andalso hasKey(PropertiesTuple, "properties") andalso hasKey(DataList, "token") of
-				true -> writeToFile(OutermostTuple), true;
-				false -> false
+				true -> writeToFile(OutermostTuple), "1";
+				false -> "0"
 			end;
-		false -> false
+		false -> "0"
 	end.
 
 track(SessionID, _Env, Input) ->
