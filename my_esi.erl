@@ -4,7 +4,6 @@
 -export([start/0, stop/0, testValid/0, track/3]).
 -include_lib("inets/include/httpd.hrl"). 
 -import(mochijson, [decode/1]).
--import(mochijson2, [json_string_is_safe/1]).
 
 start() ->
 	inets:start(),
@@ -40,8 +39,12 @@ hasValidPrefix(Input) ->
 
 getOutermostTuple(Input) ->
 	Base64Encoded = string:substr(Input, 6),
-	Base64Decoded = base64:decode_to_string(Base64Encoded),
-	mochijson:decode(Base64Decoded).
+	try
+		Base64Decoded = base64:decode_to_string(Base64Encoded),
+		mochijson:decode(Base64Decoded)
+	catch
+		_:_ -> false
+	end.
 
 getOutermostList(OutermostTuple) ->
 	case is_tuple(OutermostTuple) andalso tuple_size(OutermostTuple) == 2 of
